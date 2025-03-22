@@ -32,26 +32,25 @@
             samAccountNameTextBox = new TextBox();
             go = new Button();
             informationsTextBos = new TextBox();
-            corexCheckBox = new CheckBox();
             samAccountNameLabel = new Label();
             pictureBox1 = new PictureBox();
-            pictureBox2 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
             // samAccountNameTextBox
             // 
-            samAccountNameTextBox.Location = new Point(27, 193);
+            samAccountNameTextBox.Location = new Point(22, 59);
+            samAccountNameTextBox.Margin = new Padding(2, 2, 2, 2);
             samAccountNameTextBox.Name = "samAccountNameTextBox";
-            samAccountNameTextBox.Size = new Size(364, 31);
+            samAccountNameTextBox.Size = new Size(292, 27);
             samAccountNameTextBox.TabIndex = 4;
             // 
             // go
             // 
-            go.Location = new Point(27, 288);
+            go.Location = new Point(22, 112);
+            go.Margin = new Padding(2, 2, 2, 2);
             go.Name = "go";
-            go.Size = new Size(364, 34);
+            go.Size = new Size(291, 27);
             go.TabIndex = 1;
             go.Text = "Go";
             go.UseVisualStyleBackColor = true;
@@ -59,69 +58,48 @@
             // 
             // informationsTextBos
             // 
-            informationsTextBos.Location = new Point(27, 339);
+            informationsTextBos.Location = new Point(21, 162);
+            informationsTextBos.Margin = new Padding(2, 2, 2, 2);
             informationsTextBos.Multiline = true;
             informationsTextBos.Name = "informationsTextBos";
-            informationsTextBos.Size = new Size(364, 411);
+            informationsTextBos.Size = new Size(292, 330);
             informationsTextBos.TabIndex = 3;
-            // 
-            // corexCheckBox
-            // 
-            corexCheckBox.AutoSize = true;
-            corexCheckBox.Location = new Point(27, 253);
-            corexCheckBox.Name = "corexCheckBox";
-            corexCheckBox.Size = new Size(201, 29);
-            corexCheckBox.TabIndex = 5;
-            corexCheckBox.Text = "Corex hesabı var mı?";
-            corexCheckBox.UseVisualStyleBackColor = true;
             // 
             // samAccountNameLabel
             // 
             samAccountNameLabel.AutoSize = true;
-            samAccountNameLabel.Location = new Point(27, 151);
+            samAccountNameLabel.Location = new Point(22, 26);
+            samAccountNameLabel.Margin = new Padding(2, 0, 2, 0);
             samAccountNameLabel.Name = "samAccountNameLabel";
-            samAccountNameLabel.Size = new Size(170, 25);
+            samAccountNameLabel.Size = new Size(147, 20);
             samAccountNameLabel.TabIndex = 2;
             samAccountNameLabel.Text = "Kullanıcı adını giriniz";
             // 
             // pictureBox1
             // 
-            pictureBox1.Location = new Point(27, 780);
+            pictureBox1.Location = new Point(22, 508);
+            pictureBox1.Margin = new Padding(2, 2, 2, 2);
             pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(364, 387);
+            pictureBox1.Size = new Size(291, 310);
             pictureBox1.TabIndex = 6;
             pictureBox1.TabStop = false;
             // 
-            // pictureBox2
-            // 
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.InitialImage = (Image)resources.GetObject("pictureBox2.InitialImage");
-            pictureBox2.Location = new Point(27, 23);
-            pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(364, 96);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 7;
-            pictureBox2.TabStop = false;
-            pictureBox2.WaitOnLoad = true;
-            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(414, 1213);
-            Controls.Add(pictureBox2);
+            ClientSize = new Size(331, 844);
             Controls.Add(pictureBox1);
-            Controls.Add(corexCheckBox);
             Controls.Add(informationsTextBos);
             Controls.Add(samAccountNameLabel);
             Controls.Add(go);
             Controls.Add(samAccountNameTextBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            Margin = new Padding(2, 2, 2, 2);
             Name = "Form1";
             Text = "QRCodeGenerator";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,9 +109,7 @@
         private TextBox samAccountNameTextBox;
         private Button go;
         private TextBox informationsTextBos;
-        private CheckBox corexCheckBox;
         private Label samAccountNameLabel;
         private PictureBox pictureBox1;
-        private PictureBox pictureBox2;
     }
 }

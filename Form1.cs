@@ -15,47 +15,30 @@ namespace QRCodeGenerator
 
     public partial class Form1 : Form
     {
-
-
-
         public Form1()
         {
             InitializeComponent();
         }
-
-
-        PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "yph.inc");
-
-     
-
+        PrincipalContext principalContext = new PrincipalContext(ContextType.Domain, "ENTER YOUR DOMAIN ADDRESS");
         private void go_Click(object sender, EventArgs e)
         {
             using (var searcher = new PrincipalSearcher(new UserPrincipal(principalContext)))
             {
                 UserPrincipal userPrincipal = new UserPrincipal(principalContext);
                 userPrincipal.SamAccountName = samAccountNameTextBox.Text;
-
                 searcher.QueryFilter = userPrincipal;
-
                 var result = searcher.FindOne();
-
                 if (result != null)
                 {
-                    DirectoryEntry de = result.GetUnderlyingObject() as DirectoryEntry;
-                
+                    DirectoryEntry de = result.GetUnderlyingObject() as DirectoryEntry;           
                     string n = $"N:{de.Properties["sn"].Value};{de.Properties["givenName"].Value};;;";
-                    string fn = $"FN:{de.Properties["cn"].Value}";
-                    string org = $"ORG:YILPORT HOLDING - COREX PORTS & TERMINALS";
+                    string fn = $"FN:{de.Properties["cn"].Value}";                   
+                    string org = $"ORG:{de.Properties["company"].Value};";
                     string title = $"TITLE:{de.Properties["title"].Value}";
-                    string corexAdr = "ADR:;;Professor W.H. Keesomlaan 5\\,;Amstelveen;;1183 DJ;The Netherlands";
                     string extention = de.Properties["telephoneNumber"].Value?.ToString();
-                    string maslakVoice = $"TEL;TYPE=work;{extention}:+90 212 290 30 80";
-                    string dilovasiVoice = $"TEL;TYPE=work;{extention}:+90 262 679 76 00";
                     string mobileCell = $"TEL;TYPE=cell:{de.Properties["mobile"].Value}";
-                    string yilportMail = $"EMAIL;TYPE=internet:{de.Properties["mail"].Value}";
-                    string corexMail = $"EMAIL;TYPE=internet:{samAccountNameTextBox.Text}@corexholding.com";
-                    string urlYilport = "URL:www.yilport.com";
-                    string urlCorex = "URL:www.corexports.com";
+                    string mail = $"EMAIL;TYPE=internet:{de.Properties["mail"].Value}";
+                   
                     //address
                     string street = de.Properties["streetAddress"].Value?.ToString();
                     string city = de.Properties["l"].Value?.ToString();
@@ -66,25 +49,6 @@ namespace QRCodeGenerator
                     // Build the Address String
                     string address = $"ADR:;;{street};{city};{state};{postalCode};{country}";
 
-
-                    //dail number
-                    var dailCity = city.ToLower(new CultureInfo("en-GB"));
-                    string dailNumber;
-                    switch (dailCity)
-                    {
-                        case "istanbul":
-                            dailNumber = maslakVoice;
-                            break;
-                        case "dilovasi":
-                             dailNumber = dilovasiVoice;
-                            break;
-                        case "kocaeli":
-                            dailNumber = dilovasiVoice;
-                            break;
-                        default:
-                            dailNumber = "";
-                            break;
-                    }
                     // Construct vCard
                     List<string> vCardLines = new List<string>
                     {
@@ -94,26 +58,17 @@ namespace QRCodeGenerator
                         fn,
                         org,
                         title,
-                        address, // Always include default address
-                        mobileCell,
-                        dailNumber,
-                        yilportMail, // Always include Yilport email
-                        urlYilport
+                        address,
+                        mobileCell, 
+                        mail, 
+                      
                     };
-               
-                    if(corexCheckBox.Checked)
-                    {
-                        vCardLines.Add(corexAdr);
-                        vCardLines.Add(corexMail);
-                        vCardLines.Add(urlCorex);
-                    }
                     vCardLines.Add("END:VCARD");
 
                     string vCard = string.Join(Environment.NewLine,vCardLines);
                     // Display in TextBox
                     informationsTextBos.Multiline = true;
                     informationsTextBos.Text = vCard;
-
                     // Generate QR Code
                     GenerateQRCode(vCard.ToString());
                 }
@@ -121,13 +76,8 @@ namespace QRCodeGenerator
                 {
                     MessageBox.Show("User not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-
-
             }
-
         }
-
 
         private void GenerateQRCode(dynamic vCardData)
         {
@@ -138,10 +88,8 @@ namespace QRCodeGenerator
                     using (QRCode qr = new QRCode(qRCodeData))
                     {
                         string folderPath = Path.Combine(Environment.CurrentDirectory, "qrcodes");
-                        Directory.CreateDirectory(folderPath); // Klasör yoksa oluþtur
-
+                        Directory.CreateDirectory(folderPath); 
                         string filePath = Path.Combine(folderPath, $"{samAccountNameTextBox.Text}_vcard_qr.png");
-                      
                         Bitmap qrCodeImage = qr.GetGraphic(20);
                         qrCodeImage.Save(filePath, System.Drawing.Imaging.ImageFormat.Png);
                         Bitmap resizedQR = new Bitmap(qrCodeImage, pictureBox1.Width, pictureBox1.Height);
